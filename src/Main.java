@@ -6,31 +6,13 @@ public class Main
 {
 	public static void main(String[] args) throws Exception
 	{
+     // start the server test function.
 		new Main().server();
-		// new Main().cl();
-		// Date d=new Date();
-		// System.out.println( d.toGMTString());
-
-	}
-	void cl() throws IOException
-	{
-		Socket ss=new Socket("", 6789);
-		System.out.println("connected");
-		DataOutputStream dos=new DataOutputStream(ss.getOutputStream());
-		dos.writeBytes("Get /dhdb http/1.1");
-		dos.writeBytes("\r\n\r\n");
-		System.out.println("request sent. waiting for incomin msg");
-		InputStream is=ss.getInputStream();
-		byte[] b=new byte[1024];
-		int rd=0;
-		while ((rd = is.read(b)) != 0 && rd != -1)
-			System.out.println(new String(b));
-
-		System.out.println("-------- done! --------");
-
+	
 	}
 	void server() throws Exception
 	{
+     // get up address from wlan0
 		NetworkInterface inf= NetworkInterface.getByName("wlan0");
 		NetworkInterface inf2=NetworkInterface.getByName("p2p-wlan0-0");
 		if (inf != null)
@@ -38,6 +20,7 @@ public class Main
 		if (inf2 != null)
 			System.out.println("adrs2 " + inf2.getInterfaceAddresses());
 
+     // start the server on port 1233.
 		HServer server=new HServer(1234);
 		server.start();
 
